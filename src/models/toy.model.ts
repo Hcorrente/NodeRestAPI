@@ -38,7 +38,12 @@ export class Toy {
                 method: 'PUT',
                 callback: this.updateToy,
                 requireToken: true,
-            },
+            }, {
+                route: '/delete/id/:id',
+                method: 'DELETE',
+                callback: this.deleteToy,
+                requireToken: true,
+            }
         ]];
     }
 
@@ -47,6 +52,15 @@ export class Toy {
             console.log('req.body===>', req.body);
             let carCtrl = model.controller;
             let resp = await carCtrl.update(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
+
+    deleteToy(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            console.log('req.body===>', req.body);
+            let carCtrl = model.controller;
+            let resp = await carCtrl.remove(req, null, null);
             res.json({ message: 'Success', resp });
         }
     }
