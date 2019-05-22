@@ -8,15 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class Car {
+class Flower {
     constructor(norm) {
         this.model = [{
                 id: { type: Number, key: 'primary' },
-                make: { type: String, maxlength: 24 },
-                model: { type: String, maxlength: 24 },
-                year: { type: String, maxlength: 24 },
+                type: { type: String, maxlength: 24 },
                 color: { type: String, maxlength: 24 },
-                mileage: { type: String, maxlength: 24 },
                 user_id: {
                     type: Number,
                     key: 'foreign',
@@ -24,38 +21,38 @@ class Car {
                     onDelete: 'cascade',
                     onUpdate: 'cascade'
                 },
-            }, 'A table to store car info',
+            }, 'A table to store flower info',
             [
                 {
-                    route: '/get-all-cars',
+                    route: '/get-all-flowers',
                     method: 'POST',
-                    callback: this.getAllCars,
+                    callback: this.getAllFlowers,
                     requireToken: true,
                 },
                 {
-                    route: '/get-car-by-id/:id',
+                    route: '/get-flower-by-id/:id',
                     method: 'POST',
-                    callback: this.getCarById,
+                    callback: this.getFlowerById,
                     requireToken: true,
                 }, {
-                    route: '/create-car',
+                    route: '/create-flower',
                     method: 'POST',
-                    callback: this.createCar,
+                    callback: this.createFlower,
                     requireToken: true,
                 }, {
-                    route: '/update-car/id/:id',
+                    route: '/update-flower/id/:id',
                     method: 'PUT',
-                    callback: this.updateCar,
+                    callback: this.updateFlower,
                     requireToken: true,
                 }, {
                     route: '/delete/id/:id',
                     method: 'DELETE',
-                    callback: this.deleteCar,
+                    callback: this.deleteFlower,
                     requireToken: true,
                 }
             ]];
     }
-    updateCar(model) {
+    updateFlower(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             console.log('req.body===>', req.body);
             let carCtrl = model.controller;
@@ -63,7 +60,7 @@ class Car {
             res.json({ message: 'Success', resp });
         });
     }
-    deleteCar(model) {
+    deleteFlower(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             console.log('req.body===>', req.body);
             let carCtrl = model.controller;
@@ -71,15 +68,7 @@ class Car {
             res.json({ message: 'Success', resp });
         });
     }
-    createCar(model) {
-        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            console.log('req.body===>', req.body);
-            let carCtrl = model.controller;
-            let resp = yield carCtrl.insert(req, null, null);
-            res.json({ message: 'Success', resp });
-        });
-    }
-    getAllCars(model) {
+    getAllFlowers(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             req.body = {
                 get: ["*"]
@@ -89,7 +78,15 @@ class Car {
             res.json({ message: 'Success', resp });
         });
     }
-    getCarById(model) {
+    createFlower(model) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            console.log('req.body===>', req.body);
+            let carCtrl = model.controller;
+            let resp = yield carCtrl.insert(req, null, null);
+            res.json({ message: 'Success', resp });
+        });
+    }
+    getFlowerById(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             req.body = {
                 get: ["*"],
@@ -109,4 +106,4 @@ class Car {
         return this._model;
     }
 }
-exports.Car = Car;
+exports.Flower = Flower;
