@@ -28,6 +28,11 @@ export class Flower {
                 callback: this.getFlowerById,
                 requireToken: true,
             }, {
+                route: '/create-flower',
+                method: 'POST',
+                callback: this.createFlower,
+                requireToken: true,
+            }, {
                 route: '/update-flower/id/:id',
                 method: 'PUT',
                 callback: this.updateFlower,
@@ -52,6 +57,15 @@ export class Flower {
             }
             let carCtrl = model.controller;
             let resp = await carCtrl.get(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
+
+    createFlower(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            console.log('req.body===>', req.body);
+            let carCtrl = model.controller;
+            let resp = await carCtrl.insert(req, null, null);
             res.json({ message: 'Success', resp });
         }
     }

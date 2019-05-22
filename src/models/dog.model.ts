@@ -29,6 +29,11 @@ export class Dog {
                 callback: this.getDogById,
                 requireToken: true,
             }, {
+                route: '/create-dog',
+                method: 'POST',
+                callback: this.createDog,
+                requireToken: true,
+            },{
                 route: '/update-dog/id/:id',
                 method: 'PUT',
                 callback: this.updateDog,
@@ -53,6 +58,15 @@ export class Dog {
             }
             let carCtrl = model.controller;
             let resp = await carCtrl.get(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
+
+    createDog(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            console.log('req.body===>', req.body);
+            let carCtrl = model.controller;
+            let resp = await carCtrl.insert(req, null, null);
             res.json({ message: 'Success', resp });
         }
     }

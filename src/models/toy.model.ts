@@ -28,8 +28,12 @@ export class Toy {
                 method: 'POST',
                 callback: this.getToyById,
                 requireToken: true,
-            }, 
-             {
+            },{
+                route: '/create-toy',
+                method: 'POST',
+                callback: this.createToy,
+                requireToken: true,
+            }, {
                 route: '/update-toy/id/:id',
                 method: 'PUT',
                 callback: this.updateToy,
@@ -54,6 +58,15 @@ export class Toy {
             }
             let carCtrl = model.controller;
             let resp = await carCtrl.get(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
+
+    createToy(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            console.log('req.body===>', req.body);
+            let carCtrl = model.controller;
+            let resp = await carCtrl.insert(req, null, null);
             res.json({ message: 'Success', resp });
         }
     }
